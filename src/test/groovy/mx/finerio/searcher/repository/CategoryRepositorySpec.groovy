@@ -1,6 +1,6 @@
 package mx.finerio.searcher.repository
 
-import mx.finerio.searcher.model.Category
+import mx.finerio.searcher.model.UserCategorizer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ActiveProfiles
@@ -11,25 +11,28 @@ import spock.lang.Specification
 class CategoryRepositorySpec extends Specification {
 
     @Autowired
-    CategoryRepository categoryRepository
+    UserCategorizerRepository userCategorizerRepository
 
-    def "Should save and find a category"() {
-
-        given:'a saved category'
-
-        Category category = new Category()
-        category.with {
-            id = 1
-
+    def "Should save and find an user categorized"() {
+        given:
+        UserCategorizer userCategorizer = new UserCategorizer()
+        userCategorizer.with {
+            userId = 1
+            categoryId = 1
+            description = 'UBER EATS'
         }
-
-        categoryRepository.save(category)
+        userCategorizerRepository.save(userCategorizer)
 
         when:
-        def result =  categoryRepository.findById(1L)
+        def response = userCategorizerRepository.findById(userCategorizer.id)
 
         then:
-        assert result
+        response.with {
+            assert dateCreated
+            assert lastUpdated
+            assert id
+            assert description == userCategorizer.description
+        }
     }
 
 }

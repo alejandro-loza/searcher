@@ -1,0 +1,14 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /api/v1
+spring:
+    application:
+        name: searchAPI
+    jpa:
+        properties:
+            hibernate:
+                search:
+                    default:
+                        directory_provider: 'filesystem'
+                        indexBase: 'lucene/indexes/'

@@ -3,7 +3,17 @@ package mx.finerio.searcher.model
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory
 import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory
-import org.hibernate.search.annotations.*
+import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
+import org.hibernate.search.annotations.AnalyzerDef
+import org.hibernate.search.annotations.AnalyzerDefs
+import org.hibernate.search.annotations.Field
+import org.hibernate.search.annotations.Indexed
+import org.hibernate.search.annotations.Parameter
+import org.hibernate.search.annotations.TokenFilterDef
+import org.hibernate.search.annotations.TokenizerDef
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -34,19 +44,17 @@ import javax.persistence.Id
                 ]
         )
 ])
-class Category  {
-
+class UserCategorizer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id
-    @Field
-    String name
-    String color
-    Date dateCreated
-    Date lastUpdated
-    User user
-    Client client
-    Date dateDeleted
-    Category parent
 
+    Long userId
+    @Field
+    String description
+    Long categoryId
+    @CreationTimestamp
+    Date dateCreated
+    @UpdateTimestamp
+    Date lastUpdated
 }
