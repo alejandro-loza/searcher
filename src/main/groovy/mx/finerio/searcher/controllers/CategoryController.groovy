@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
@@ -23,6 +24,11 @@ class CategoryController {
     @GetMapping(path="/{id}", produces = "application/json")
     ResponseEntity find(@PathVariable("id") Long id) {
         new ResponseEntity<>(categorySearchService.findById(id), HttpStatus.OK)
+    }
+
+    @GetMapping(produces = "application/json")
+    ResponseEntity findFuzzy(@RequestParam Long userId, @RequestParam String description ) {
+        new ResponseEntity<>(categorySearchService.findByDescription(userId, description), HttpStatus.OK)
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

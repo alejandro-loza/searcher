@@ -4,7 +4,7 @@ import mx.finerio.searcher.dtos.UserCategorizerDto
 import mx.finerio.searcher.validation.UserCategoryCommand
 
 interface UserCategorySearchService {
-    List findByDescription(String text )
+    List findByDescription(long userId, String description )
     UserCategorizerDto create(UserCategoryCommand cmd)
     UserCategorizerDto findById(long id)
 

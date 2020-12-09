@@ -45,9 +45,9 @@ class UserCategorizerServiceImp implements UserCategorySearchService {
     }
 
     @Override
-    List findByDescription(String text ) throws Exception {
+    List findByDescription(long userId, String description ) throws Exception {
 
-        if ( !text ) {
+        if ( !description || !userId ) {
             return []
         }
 
@@ -60,7 +60,7 @@ class UserCategorizerServiceImp implements UserCategorySearchService {
         Query query = queryBuilder
                 .keyword().fuzzy()
                 .onField( 'description' )
-                .matching( text )
+                .matching( description )
                 .createQuery()
 
         fullTextEntityManager.createFullTextQuery( query, UserCategorizer ).getResultList()
