@@ -32,7 +32,7 @@ class UserCategorizerServiceImp implements UserCategorySearchService {
     UserCategorizerDto create(UserCategoryCommand cmd) {
         UserCategorizer userCategorizer = new UserCategorizer()
         userCategorizer.with {
-            userId = cmd.categoryId
+            userId = cmd.userId
             categoryId = cmd.categoryId
             description = cmd.description
         }
@@ -57,13 +57,25 @@ class UserCategorizerServiceImp implements UserCategorySearchService {
                 .buildQueryBuilder()
                 .forEntity( UserCategorizer ).get()
 
-        Query query = queryBuilder
-                .keyword().fuzzy()
+
+        Query userCategories = queryBuilder
+                .keyword()
+                .onField("userId").matching(userId)
+                .createQuery()
+
+        Query fuzzy = queryBuilder
+                .keyword()
+                .fuzzy()
                 .onField( 'description' )
                 .matching( description )
                 .createQuery()
 
-        fullTextEntityManager.createFullTextQuery( query, UserCategorizer ).getResultList()
+        Query full = queryBuilder.bool()
+                .must(userCategories)
+                .must(fuzzy)
+                .createQuery()
+
+        fullTextEntityManager.createFullTextQuery( full, UserCategorizer ).getResultList()
 
     }
 }

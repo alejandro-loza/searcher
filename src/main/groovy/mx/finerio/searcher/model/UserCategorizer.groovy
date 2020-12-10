@@ -12,8 +12,6 @@ import org.hibernate.search.annotations.Indexed
 import org.hibernate.search.annotations.Parameter
 import org.hibernate.search.annotations.TokenFilterDef
 import org.hibernate.search.annotations.TokenizerDef
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -49,7 +47,9 @@ class UserCategorizer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id
 
+    @Field
     Long userId
+
     @Field
     String description
     Long categoryId
