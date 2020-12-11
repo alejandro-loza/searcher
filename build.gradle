@@ -68,7 +68,7 @@ dependencies {
 }
 
 contracts {
-	packageWithBaseClasses = 'mx.finerio'
+	packageWithBaseClasses = 'mx.finerio.searcher'
 	baseClassMappings {
 		baseClassMapping( '.*.',"mx.finerio.searcher.BaseRestContract")
 	}

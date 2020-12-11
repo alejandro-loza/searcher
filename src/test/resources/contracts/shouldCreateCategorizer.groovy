@@ -21,6 +21,9 @@ then:
 
             }
         }
+        headers {
+            contentType('application/json')
+        }
     }
     response {
         status OK()
